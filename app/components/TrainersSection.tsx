@@ -91,11 +91,26 @@ export default function TrainersSection() {
             </div>
           </div>
 
-          {/* Достижения — под всем */}
+          {/* Достижения — десктоп: всегда видны */}
           {trainer.achievements && Array.isArray(trainer.achievements) && (
-            <div className="mt-8 clear-both">
+            <div className="hidden md:block mt-8 clear-both">
               <p className="text-xs font-semibold text-[#666666] uppercase tracking-widest mb-4">Достижения и квалификация</p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+                {trainer.achievements.map((item: string, i: number) => (
+                  <li key={i} className="flex items-start gap-2 text-[#888888] text-xs">
+                    <span className="mt-1.5 w-1 h-1 rounded-full bg-[#c41e3a] flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Достижения — мобайл: только при expanded */}
+          {expanded && trainer.achievements && Array.isArray(trainer.achievements) && (
+            <div className="md:hidden mt-6 clear-both">
+              <p className="text-xs font-semibold text-[#666666] uppercase tracking-widest mb-4">Достижения и квалификация</p>
+              <ul className="grid grid-cols-1 gap-y-2">
                 {trainer.achievements.map((item: string, i: number) => (
                   <li key={i} className="flex items-start gap-2 text-[#888888] text-xs">
                     <span className="mt-1.5 w-1 h-1 rounded-full bg-[#c41e3a] flex-shrink-0" />
