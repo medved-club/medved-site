@@ -24,8 +24,8 @@ export default function TrainersSection() {
         <div className="mt-12">
           {/* Фото + текст в обтекание */}
           <div className="clearfix">
-            {/* Фото — слева, текст обтекает */}
-            <div className="float-left mr-8 mb-4 w-64 sm:w-80 flex-shrink-0">
+            {/* Мобайл: без float, фото сверху; Десктоп: float-left */}
+            <div className="float-none w-44 mx-auto mb-6 md:float-left md:mx-0 md:mr-8 md:mb-4 md:w-64 lg:w-80 flex-shrink-0">
               <div className="relative w-full aspect-[3/4] bg-[#222222] rounded-xl overflow-hidden">
                 {trainer.photo ? (
                   <Image
