@@ -133,6 +133,7 @@ export default function GallerySection() {
                     src={item.src}
                     alt={item.alt}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    style={{ objectPosition: item.objectPosition ?? "center" }}
                     loading="lazy"
                   />
                 ) : (
