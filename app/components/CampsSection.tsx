@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { camps } from "@/app/data/camps"
 import { SectionHeader } from "./TrainingTypesSection"
 import CampCountdown from "./CampCountdown"
@@ -27,11 +28,12 @@ export default function CampsSection() {
               {/* Фото */}
               <div className="relative w-full aspect-[16/9] bg-[#222222] overflow-hidden flex items-center justify-center">
                 {camp.photo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <Image
                     src={camp.photo}
                     alt={camp.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    sizes="(min-width: 1024px) 592px, 100vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
                 ) : (

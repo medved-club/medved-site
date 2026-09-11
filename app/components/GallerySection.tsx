@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
+import Image from "next/image"
 import { galleryCategories, galleryItems, type GalleryCategory } from "@/app/data/gallery"
 import { SectionHeader } from "./TrainingTypesSection"
 
@@ -128,11 +129,12 @@ export default function GallerySection() {
                 aria-label={item.alt}
               >
                 {item.src ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <Image
                     src={item.src}
                     alt={item.alt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    sizes="(min-width: 640px) 288px, 256px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                     style={{ objectPosition: item.objectPosition ?? "center" }}
                     loading="lazy"
                   />
