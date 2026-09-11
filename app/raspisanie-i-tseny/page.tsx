@@ -239,7 +239,7 @@ export default function RaspisaniyePage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl font-black text-white mb-4">Запишитесь на первое занятие</h2>
             <p className="text-[#888888] mb-8">
-              Щёлково, Талсинская улица, 9/2 · Пн / Ср / Пт
+              Щёлково, Талсинская улица, 9 · Пн / Ср / Пт
             </p>
             <Link
               href="/#lead-form"

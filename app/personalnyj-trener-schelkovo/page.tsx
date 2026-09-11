@@ -80,7 +80,7 @@ export default function PersonalTrainerPage() {
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl font-black text-white mb-4">Первое групповое занятие — бесплатно</h2>
-            <p className="text-[#888888] mb-8">Щёлково, Талсинская улица, 9/2</p>
+            <p className="text-[#888888] mb-8">Щёлково, Талсинская улица, 9</p>
             <Link href="/#lead-form" className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200">Записаться</Link>
           </div>
         </section>

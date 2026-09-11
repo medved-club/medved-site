@@ -38,7 +38,7 @@ export default function EdinoborstvaPage() {
               Клуб «Медведь» — секция тайского бокса и муай-тай в Щёлково. Тренировки для детей, подростков и взрослых. Групповые, персональные и сплит-форматы.
             </p>
             <p className="text-[#888888] text-base leading-relaxed mb-10 max-w-2xl">
-              Щёлково, Талсинская улица, 9/2 · Пн / Ср / Пт с 18:00
+              Щёлково, Талсинская улица, 9 · Пн / Ср / Пт с 18:00
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link href="/#lead-form" className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200">Записаться на тренировку</Link>
@@ -82,7 +82,7 @@ export default function EdinoborstvaPage() {
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl font-black text-white mb-4">Первая групповая тренировка — бесплатно</h2>
-            <p className="text-[#888888] mb-8">Щёлково, Талсинская улица, 9/2 · Пн / Ср / Пт</p>
+            <p className="text-[#888888] mb-8">Щёлково, Талсинская улица, 9 · Пн / Ср / Пт</p>
             <Link href="/#lead-form" className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200">Записаться</Link>
           </div>
         </section>

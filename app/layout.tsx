@@ -77,7 +77,7 @@ const jsonLdOrganization = {
     "@type": "PostalAddress",
     addressLocality: contacts.city,
     addressRegion: "Московская область",
-    streetAddress: "Талсинская улица, 9/2",
+    streetAddress: "Талсинская улица, 9",
     postalCode: "141100",
     addressCountry: "RU",
   },

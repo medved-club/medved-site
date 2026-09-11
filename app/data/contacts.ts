@@ -1,7 +1,7 @@
 export const contacts = {
   clubName: "Клуб тайского бокса «Медведь»",
   city: "Щёлково",
-  address: "Московская область, Щёлково, Талсинская улица, 9/2",
+  address: "Московская область, Щёлково, Талсинская улица, 9",
   phone: "+7 968 675-07-00",
   phoneHref: "tel:+79686750700",
   telegram: "https://t.me/medvedMuayThai",

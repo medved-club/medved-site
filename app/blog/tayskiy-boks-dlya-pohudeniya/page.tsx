@@ -132,7 +132,7 @@ export default function ArticlePohudenieYaPage() {
 
             <div className="bg-[#1a1a1a] border border-[#c41e3a]/20 rounded-xl p-8 text-center">
               <h2 className="text-xl font-bold text-white mb-3">Первая тренировка — бесплатно</h2>
-              <p className="text-[#888888] text-sm mb-6">Щёлково, Талсинская улица, 9/2 · Пн / Ср / Пт</p>
+              <p className="text-[#888888] text-sm mb-6">Щёлково, Талсинская улица, 9 · Пн / Ср / Пт</p>
               <Link href="/#lead-form" className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200">
                 Записаться
               </Link>
