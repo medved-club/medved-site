@@ -69,7 +69,7 @@ export default function Header() {
             <span className="text-xl lg:text-2xl font-black text-white tracking-wider uppercase group-hover:text-[#c41e3a] transition-colors duration-200">
               Медведь
             </span>
-            <span className="text-[10px] lg:text-xs text-[#999999] uppercase tracking-[0.2em]">
+            <span className="text-[8px] lg:text-xs text-[#999999] uppercase tracking-[0.05em] lg:tracking-[0.2em] whitespace-nowrap">
               клуб тайского бокса
             </span>
           </a>

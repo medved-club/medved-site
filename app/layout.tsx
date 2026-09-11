@@ -4,6 +4,7 @@ import Script from "next/script"
 import "./globals.css"
 import { contacts } from "@/app/data/contacts"
 import { faq } from "@/app/data/faq"
+import { reviews } from "@/app/data/reviews"
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -68,7 +69,7 @@ const jsonLdOrganization = {
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "5.0",
-    reviewCount: "45",
+    reviewCount: String(reviews.length),
     bestRating: "5",
     worstRating: "1",
   },

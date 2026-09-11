@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { contacts } from "@/app/data/contacts"
+import { cities } from "@/app/data/cities"
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -79,6 +80,22 @@ export default function Footer() {
                 Яндекс.Карты
               </a>
             </div>
+          </div>
+        </div>
+
+        {/* Cities */}
+        <div className="mt-10 pt-6 border-t border-[#1a1a1a]">
+          <p className="text-xs font-semibold text-[#444444] uppercase tracking-widest mb-4">Принимаем учеников из</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {cities.map((city) => (
+              <Link
+                key={city.slug}
+                href={`/${city.slug}`}
+                className="text-[#666666] hover:text-[#cccccc] text-sm transition-colors duration-200"
+              >
+                {city.name}
+              </Link>
+            ))}
           </div>
         </div>
 

@@ -5,7 +5,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: base, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${base}/tajskij-boks-schelkovo`, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-    { url: `${base}/muaj-taj-schelkovo`, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${base}/sboryi`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/sboryi/azovskoe-more`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/sboryi/tailand`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
