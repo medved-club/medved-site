@@ -84,8 +84,7 @@ export default function TrainingTypesSection() {
                   onClick={() => scrollToForm(type.formValue)}
                   className="w-full py-3 bg-[#111111] hover:bg-[#c41e3a] border border-[#333333] hover:border-[#c41e3a] text-white text-sm font-semibold rounded transition-all duration-200 mt-auto"
                 >
-                  <span className="md:hidden">Пробная тренировка</span>
-                  <span className="hidden md:inline">{type.buttonText}</span>
+                  {type.buttonText}
                 </button>
               </div>
             )
