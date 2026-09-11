@@ -207,8 +207,9 @@ export default function LeadFormSection() {
               <div className="flex items-center gap-3 bg-[#c41e3a]/10 border border-[#c41e3a]/30 rounded-xl px-4 py-3">
                 <span className="text-xl flex-shrink-0">🎁</span>
                 <p className="text-white text-sm font-semibold">
-                  Первая тренировка — ознакомительная{" "}
+                  Первая групповая тренировка — ознакомительная{" "}
                   <span className="text-[#c41e3a] font-black uppercase tracking-wide">бесплатно</span>
+                  <span className="block text-[#888] text-xs font-normal normal-case mt-0.5">Персональные и сплит-тренировки — платные с первого занятия</span>
                 </p>
               </div>
             </div>

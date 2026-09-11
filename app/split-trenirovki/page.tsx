@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export const metadata = {
   title: "Сплит-тренировки по тайскому боксу в Щёлково — Клуб «Медведь»",
-  description: "Сплит-тренировки по тайскому боксу в Щёлково — занятия для 2–3 человек с тренером. Качество персональной тренировки по доступной цене. Первое занятие бесплатно.",
+  description: "Сплит-тренировки по тайскому боксу в Щёлково — занятия для 2–3 человек с тренером. Качество персональной тренировки по доступной цене. От 4 000 ₽ за двоих.",
   keywords: ["сплит тренировки Щёлково", "сплит тренировки тайский бокс", "тренировки для двоих Щёлково", "групповые персональные тренировки единоборства"],
   alternates: {
     canonical: "https://medved-club.ru/split-trenirovki",
@@ -75,9 +75,10 @@ export default function SplitPage() {
 
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-black text-white mb-4">Первое занятие — бесплатно</h2>
+            <h2 className="text-2xl font-black text-white mb-4">Сплит-тренировка — от 4 000 ₽ за двоих</h2>
             <p className="text-[#888888] mb-8">Щёлково, Талсинская улица, 9/2</p>
             <Link href="/#lead-form" className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200">Записаться</Link>
+            <p className="text-[#555] text-sm mt-6">Хотите попробовать бесплатно? Первое занятие бесплатно только в групповом формате — <Link href="/probnaya-trenirovka" className="text-[#c41e3a] hover:underline">подробнее о пробной тренировке</Link>.</p>
           </div>
         </section>
       </main>

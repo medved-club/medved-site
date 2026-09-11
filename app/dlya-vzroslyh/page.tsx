@@ -78,7 +78,7 @@ export default function DlyaVzroslykhPage() {
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-black text-white mb-4">Начать тренировки</h2>
-            <p className="text-[#888888] mb-8">Расписание: пн / ср / пт. Первая тренировка — ознакомительная, бесплатно.</p>
+            <p className="text-[#888888] mb-8">Расписание: пн / ср / пт. Первая групповая тренировка — ознакомительная, бесплатно.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/#lead-form"

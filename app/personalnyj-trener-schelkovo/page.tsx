@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export const metadata = {
   title: "Персональный тренер по единоборствам в Щёлково — Клуб «Медведь»",
-  description: "Персональный тренер по тайскому боксу в Щёлково. КМС, более 10 лет опыта. Индивидуальные и сплит-тренировки. Первое занятие бесплатно.",
+  description: "Персональный тренер по тайскому боксу в Щёлково. КМС, более 10 лет опыта. Индивидуальные и сплит-тренировки, а также группы. Первое групповое занятие — бесплатно.",
   keywords: ["персональный тренер Щёлково", "тренер по единоборствам Щёлково", "тренер по боксу Щёлково", "персональный тренер по тайскому боксу", "тренер муай тай Щёлково"],
   alternates: {
     canonical: "https://medved-club.ru/personalnyj-trener-schelkovo",
@@ -79,7 +79,7 @@ export default function PersonalTrainerPage() {
 
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-black text-white mb-4">Первое занятие — бесплатно</h2>
+            <h2 className="text-2xl font-black text-white mb-4">Первое групповое занятие — бесплатно</h2>
             <p className="text-[#888888] mb-8">Щёлково, Талсинская улица, 9/2</p>
             <Link href="/#lead-form" className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200">Записаться</Link>
           </div>

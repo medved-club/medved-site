@@ -44,7 +44,7 @@ export default function CityPage({ city }: Props) {
               Клуб тайского бокса «Медведь» в Щёлково — {city.distance} {city.nameFrom} {city.transport}. Тренировки для детей с 6 лет, подростков и взрослых.
             </p>
             <p className="text-[#888888] text-base leading-relaxed mb-10 max-w-2xl">
-              Тренер КМС — более 10 лет опыта. Первое занятие бесплатно.
+              Тренер КМС — более 10 лет опыта. Первое групповое занятие бесплатно.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
@@ -138,7 +138,7 @@ export default function CityPage({ city }: Props) {
         {/* CTA */}
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-black text-white mb-4">Первое занятие — бесплатно</h2>
+            <h2 className="text-2xl font-black text-white mb-4">Первое групповое занятие — бесплатно</h2>
             <p className="text-[#888888] mb-2">Щёлково, Талсинская улица, 9/2 (фитнес-клуб «Олимп»)</p>
             <p className="text-[#555] text-sm mb-8">Пн / Ср / Пт · +7 968 675-07-00</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
