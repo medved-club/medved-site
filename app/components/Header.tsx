@@ -94,7 +94,7 @@ export default function Header() {
             <a
               href={contacts.phoneHref}
               onClick={() => { try { (window as any).ym(109565621, "reachGoal", "phone_click") } catch {} }}
-              className="text-sm text-[#cccccc] hover:text-white transition-colors duration-200"
+              className="text-sm text-[#cccccc] hover:text-white transition-colors duration-200 whitespace-nowrap"
             >
               {contacts.phone}
             </a>
@@ -107,24 +107,15 @@ export default function Header() {
           </div>
 
           {/* Mobile controls */}
-          <div className="flex lg:hidden items-center gap-3">
+          <div className="flex lg:hidden items-center gap-2">
             <a
               href={contacts.phoneHref}
               aria-label="Позвонить"
               onClick={() => { try { (window as any).ym(109565621, "reachGoal", "phone_click") } catch {} }}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1a1a1a] hover:bg-[#c41e3a] text-white transition-colors duration-200"
+              className="flex items-center gap-1.5 px-2.5 h-9 rounded-full bg-[#1a1a1a] hover:bg-[#c41e3a] text-white transition-colors duration-200 whitespace-nowrap"
             >
               <PhoneIcon />
-            </a>
-            <a
-              href={contacts.vk}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="ВКонтакте"
-              onClick={() => { try { (window as any).ym(109565621, "reachGoal", "vk_click") } catch {} }}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1a1a1a] hover:bg-[#0077FF] text-white transition-colors duration-200"
-            >
-              <VkIcon />
+              <span className="text-xs font-semibold">{contacts.phone}</span>
             </a>
             <button
               onClick={handleEnroll}

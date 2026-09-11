@@ -18,7 +18,7 @@ interface Props {
 
 export default function CityPage({ city }: Props) {
   const formats = [
-    { title: "Групповые", price: "6 000 ₽/мес", desc: "Пн/Ср/Пт — 3 раза в неделю. Группы по возрасту.", href: "/#lead-form" },
+    { title: "Групповые", price: "6 500 ₽/мес", desc: "Пн/Ср/Пт — 3 раза в неделю. Группы по возрасту.", href: "/#lead-form" },
     { title: "Персональные", price: "3 000 ₽", desc: "Один на один с тренером. Гибкое расписание.", href: "/individualnye-trenirovki" },
     { title: "Сплит", price: "2 000 ₽/чел", desc: "Для двоих. Качество персонального, цена ниже.", href: "/split-trenirovki" },
   ]
