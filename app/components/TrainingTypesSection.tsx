@@ -6,18 +6,8 @@ import { trainingTypes } from "@/app/data/trainingTypes"
 export default function TrainingTypesSection() {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
-  const scrollToForm = (format: string) => {
-    const el = document.querySelector("#lead-form")
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" })
-      setTimeout(() => {
-        const select = document.querySelector<HTMLSelectElement>('[name="trainingFormat"]')
-        if (select) {
-          select.value = format
-          select.dispatchEvent(new Event("change", { bubbles: true }))
-        }
-      }, 800)
-    }
+  const scrollToForm = () => {
+    document.querySelector("#lead-form")?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
   return (
@@ -81,7 +71,7 @@ export default function TrainingTypesSection() {
                 </div>
 
                 <button
-                  onClick={() => scrollToForm(type.formValue)}
+                  onClick={scrollToForm}
                   className="w-full py-3 bg-[#111111] hover:bg-[#c41e3a] border border-[#333333] hover:border-[#c41e3a] text-white text-sm font-semibold rounded transition-all duration-200 mt-auto"
                 >
                   {type.buttonText}

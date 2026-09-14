@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { contacts } from "@/app/data/contacts"
 
 const STORAGE_KEY = "medved_popup_shown"
 const DELAY_MS = 15000
@@ -121,6 +122,23 @@ export default function PopupForm() {
                   <p className="text-center text-xs text-red-400">Ошибка. Попробуйте ещё раз.</p>
                 )}
               </form>
+
+              <div className="flex items-center gap-3 mt-4">
+                <div className="flex-1 h-px bg-[#2a2a2a]" />
+                <span className="text-[#555555] text-xs uppercase tracking-wider">или</span>
+                <div className="flex-1 h-px bg-[#2a2a2a]" />
+              </div>
+
+              <a
+                href={contacts.phoneHref}
+                onClick={() => { try { (window as any).ym(109565621, "reachGoal", "phone_click") } catch {} }}
+                className="flex items-center justify-center gap-2 w-full mt-4 py-3.5 bg-[#1a1a1a] hover:bg-[#222] border border-[#2a2a2a] hover:border-[#c41e3a]/50 text-white font-bold rounded-xl transition-all duration-200 text-sm"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.85a16 16 0 0 0 6.15 6.15l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                Позвонить: {contacts.phone}
+              </a>
 
               <p className="mt-4 text-center text-[#444] text-xs">
                 Нажимая кнопку, вы соглашаетесь с{" "}

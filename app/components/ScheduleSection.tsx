@@ -9,20 +9,8 @@ const dayShort = ["Пн", "Ср", "Пт"]
 export default function ScheduleSection() {
   const [activeDay, setActiveDay] = useState(0)
 
-  const selectTime = (day: string, slot: typeof timeSlots[0]) => {
-    const el = document.querySelector("#lead-form")
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" })
-      setTimeout(() => {
-        window.dispatchEvent(new CustomEvent("schedule-select", {
-          detail: {
-            preferredTime: `${day} ${slot.time}`,
-            who: slot.who,
-            ageOptions: slot.ageOptions,
-          }
-        }))
-      }, 800)
-    }
+  const selectTime = () => {
+    document.querySelector("#lead-form")?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
   return (
@@ -31,7 +19,7 @@ export default function ScheduleSection() {
         <SectionHeader
           label="Расписание"
           title="Расписание тренировок"
-          description="Нажмите на удобное время — оно подставится в форму записи"
+          description="Групповые тренировки — три раза в неделю. Нажмите на время, чтобы перейти к записи"
         />
 
         {/* Мобайл: вкладки + один активный день */}
@@ -57,7 +45,7 @@ export default function ScheduleSection() {
             {timeSlots.map((slot) => (
               <button
                 key={slot.time}
-                onClick={() => selectTime(scheduleDays[activeDay], slot)}
+                onClick={selectTime}
                 className="flex items-center gap-3 py-3.5 px-4 rounded-xl bg-[#141414] border border-[#242424] hover:border-[#c41e3a]/50 active:bg-[#1e1e1e] transition-all duration-150 group w-full text-left"
               >
                 <div className="flex-1">
@@ -95,7 +83,7 @@ export default function ScheduleSection() {
                 {timeSlots.map((slot) => (
                   <button
                     key={slot.time}
-                    onClick={() => selectTime(day, slot)}
+                    onClick={selectTime}
                     className="flex items-center gap-3 py-3 px-4 rounded-xl bg-[#1a1a1a] border border-[#222222] hover:border-[#c41e3a]/50 hover:bg-[#1e1e1e] transition-all duration-150 cursor-pointer group w-full text-left"
                   >
                     <div className="flex-1">

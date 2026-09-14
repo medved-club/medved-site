@@ -1,18 +1,14 @@
 "use client"
 
-import { useState, useRef, useCallback, useEffect } from "react"
+import { useState, useRef, useCallback } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { SectionHeader } from "./TrainingTypesSection"
+import { contacts } from "@/app/data/contacts"
 
 interface FormData {
   name: string
   phone: string
-  age: string
-  who: string
-  trainingFormat: string
-  preferredTime: string
-  comment: string
   consent: boolean
   honeypot: string
 }
@@ -20,18 +16,12 @@ interface FormData {
 interface FormErrors {
   name?: string
   phone?: string
-  trainingFormat?: string
   consent?: string
 }
 
 const initialData: FormData = {
   name: "",
   phone: "",
-  age: "",
-  who: "",
-  trainingFormat: "",
-  preferredTime: "",
-  comment: "",
   consent: false,
   honeypot: "",
 }
@@ -67,31 +57,7 @@ export default function LeadFormSection() {
   const [formData, setFormData] = useState<FormData>(initialData)
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [ageOptions, setAgeOptions] = useState<string[] | null>(null)
-  const [participants, setParticipants] = useState<{ name: string; age: string }[]>([])
   const lastSubmitRef = useRef<number>(0)
-
-  const addParticipant = () => {
-    if (participants.length < 4) setParticipants((p) => [...p, { name: "", age: "" }])
-  }
-
-  const removeParticipant = (i: number) => {
-    setParticipants((p) => p.filter((_, idx) => idx !== i))
-  }
-
-  const updateParticipant = (i: number, field: "name" | "age", value: string) => {
-    setParticipants((p) => p.map((item, idx) => idx === i ? { ...item, [field]: value } : item))
-  }
-
-  useEffect(() => {
-    const handler = (e: Event) => {
-      const { preferredTime, who, ageOptions: opts } = (e as CustomEvent).detail
-      setFormData((prev) => ({ ...prev, preferredTime, who, age: "" }))
-      setAgeOptions(opts)
-    }
-    window.addEventListener("schedule-select", handler)
-    return () => window.removeEventListener("schedule-select", handler)
-  }, [])
 
   const validate = (): FormErrors => {
     const e: FormErrors = {}
@@ -101,7 +67,6 @@ export default function LeadFormSection() {
     } else if (!validatePhone(formData.phone)) {
       e.phone = "Введите корректный номер телефона"
     }
-    if (!formData.trainingFormat) e.trainingFormat = "Выберите формат тренировки"
     if (!formData.consent) e.consent = "Необходимо согласие на обработку данных"
     return e
   }
@@ -113,9 +78,8 @@ export default function LeadFormSection() {
   }
 
   const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-      const { name, value, type } = e.target
-      const checked = (e.target as HTMLInputElement).checked
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value, type, checked } = e.target
       setFormData((prev) => ({
         ...prev,
         [name]: type === "checkbox" ? checked : value,
@@ -154,12 +118,6 @@ export default function LeadFormSection() {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          age: formData.age,
-          who: formData.who,
-          trainingFormat: formData.trainingFormat,
-          preferredTime: formData.preferredTime,
-          comment: formData.comment,
-          participants: participants.filter((p) => p.name.trim()),
         }),
       })
 
@@ -191,19 +149,14 @@ export default function LeadFormSection() {
               title="Записаться на тренировку"
             />
             <p className="mt-4 text-[#888888] text-base leading-relaxed">
-              Оставьте заявку, и мы свяжемся с вами, чтобы подобрать группу, формат тренировки и удобное время.
+              Оставьте имя и телефон — перезвоним и подберём группу, формат тренировки и удобное время. Или позвоните сами прямо сейчас.
             </p>
 
             <div className="mt-8 space-y-4">
-              {[
-                { icon: "📞", text: "Перезвоним в течение нескольких часов" },
-                { icon: "🎯", text: "Подберём подходящую группу и формат" },
-              ].map((item) => (
-                <div key={item.text} className="flex items-start gap-3">
-                  <span className="text-xl flex-shrink-0">{item.icon}</span>
-                  <p className="text-[#cccccc] text-sm">{item.text}</p>
-                </div>
-              ))}
+              <div className="flex items-start gap-3">
+                <span className="text-xl flex-shrink-0">📞</span>
+                <p className="text-[#cccccc] text-sm">Перезвоним в течение нескольких часов</p>
+              </div>
               <div className="flex items-center gap-3 bg-[#c41e3a]/10 border border-[#c41e3a]/30 rounded-xl px-4 py-3">
                 <span className="text-xl flex-shrink-0">🎁</span>
                 <p className="text-white text-sm font-semibold">
@@ -267,193 +220,6 @@ export default function LeadFormSection() {
                   {errors.phone && <p className="mt-1 text-xs text-[#c41e3a]">{errors.phone}</p>}
                 </div>
 
-                {/* Age + Who */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label htmlFor="age" className="block text-xs font-semibold text-[#666666] uppercase tracking-wider mb-1.5">
-                      Возраст
-                    </label>
-                    {ageOptions ? (
-                      <select
-                        id="age"
-                        name="age"
-                        value={formData.age}
-                        onChange={handleChange}
-                        className={inputClass(false)}
-                      >
-                        <option value="">Выберите</option>
-                        {ageOptions.map((opt) => (
-                          <option key={opt} value={opt}>{opt}</option>
-                        ))}
-                      </select>
-                    ) : (
-                      <input
-                        id="age"
-                        name="age"
-                        type="text"
-                        value={formData.age}
-                        onChange={handleChange}
-                        placeholder={formData.who === "Взрослый" ? "от 14 лет" : "укажите возраст"}
-                        className={inputClass(false)}
-                      />
-                    )}
-                  </div>
-                  <div>
-                    <label htmlFor="who" className="block text-xs font-semibold text-[#666666] uppercase tracking-wider mb-1.5">
-                      Кто будет заниматься
-                    </label>
-                    <select
-                      id="who"
-                      name="who"
-                      value={formData.who}
-                      onChange={(e) => {
-                        handleChange(e)
-                        setAgeOptions(null)
-                        setFormData((prev) => ({ ...prev, age: "" }))
-                      }}
-                      className={inputClass(false)}
-                    >
-                      <option value="">Выберите</option>
-                      <option value="Ребёнок">Ребёнок (6–8 лет)</option>
-                      <option value="Подросток">Подросток (9–13 лет)</option>
-                      <option value="Взрослый">Взрослый (14+)</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Training format */}
-                <div>
-                  <label htmlFor="trainingFormat" className="block text-xs font-semibold text-[#666666] uppercase tracking-wider mb-1.5">
-                    Формат тренировки <span className="text-[#c41e3a]">*</span>
-                  </label>
-                  <select
-                    id="trainingFormat"
-                    name="trainingFormat"
-                    value={formData.trainingFormat}
-                    onChange={handleChange}
-                    required
-                    className={inputClass(!!errors.trainingFormat)}
-                  >
-                    <option value="">Выберите формат</option>
-                    <option value="Групповая">Групповая</option>
-                    <option value="Персональная">Персональная</option>
-                    <option value="Сплит">Сплит</option>
-                    <option value="Хочу уточнить">Хочу уточнить</option>
-                  </select>
-                  {errors.trainingFormat && <p className="mt-1 text-xs text-[#c41e3a]">{errors.trainingFormat}</p>}
-                </div>
-
-                {/* Split participants */}
-                {formData.trainingFormat === "Сплит" && (
-                  <div className="rounded-xl border border-[#c41e3a]/20 bg-[#1e1414] p-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs font-semibold text-[#c41e3a] uppercase tracking-wider">
-                        Участники сплита
-                      </p>
-                      {participants.length < 4 && (
-                        <button
-                          type="button"
-                          onClick={addParticipant}
-                          className="flex items-center gap-1.5 text-xs text-[#c41e3a] hover:text-white transition-colors duration-150"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
-                          </svg>
-                          Добавить участника
-                        </button>
-                      )}
-                    </div>
-
-                    {participants.length === 0 && (
-                      <p className="text-xs text-[#555555]">Нажмите «Добавить участника» чтобы указать партнёров по сплиту</p>
-                    )}
-
-                    {participants.map((p, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <div className="flex-1 grid grid-cols-2 gap-2">
-                          <input
-                            type="text"
-                            value={p.name}
-                            onChange={(e) => updateParticipant(i, "name", e.target.value)}
-                            placeholder={`Имя участника ${i + 1}`}
-                            className={inputClass(false)}
-                          />
-                          <input
-                            type="text"
-                            value={p.age}
-                            onChange={(e) => updateParticipant(i, "age", e.target.value)}
-                            placeholder="Возраст"
-                            className={inputClass(false)}
-                          />
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => removeParticipant(i)}
-                          className="mt-3 text-[#444444] hover:text-[#c41e3a] transition-colors duration-150 flex-shrink-0"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-                          </svg>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Preferred time */}
-                <div>
-                  <label htmlFor="preferredTime" className="block text-xs font-semibold text-[#666666] uppercase tracking-wider mb-1.5">
-                    Удобное время
-                  </label>
-                  {formData.trainingFormat === "Персональная" || formData.trainingFormat === "Сплит" ? (
-                    <input
-                      id="preferredTime"
-                      name="preferredTime"
-                      type="text"
-                      value={formData.preferredTime}
-                      onChange={handleChange}
-                      placeholder="Укажите удобные дни и время"
-                      className={inputClass(false)}
-                    />
-                  ) : (
-                    <select
-                      id="preferredTime"
-                      name="preferredTime"
-                      value={formData.preferredTime}
-                      onChange={handleChange}
-                      className={inputClass(false)}
-                    >
-                      <option value="">Выберите время</option>
-                      <option value="Понедельник 18:00">Понедельник 18:00</option>
-                      <option value="Понедельник 19:00">Понедельник 19:00</option>
-                      <option value="Понедельник 20:00">Понедельник 20:00</option>
-                      <option value="Среда 18:00">Среда 18:00</option>
-                      <option value="Среда 19:00">Среда 19:00</option>
-                      <option value="Среда 20:00">Среда 20:00</option>
-                      <option value="Пятница 18:00">Пятница 18:00</option>
-                      <option value="Пятница 19:00">Пятница 19:00</option>
-                      <option value="Пятница 20:00">Пятница 20:00</option>
-                      <option value="Обсудить индивидуально">Обсудить индивидуально</option>
-                    </select>
-                  )}
-                </div>
-
-                {/* Comment */}
-                <div>
-                  <label htmlFor="comment" className="block text-xs font-semibold text-[#666666] uppercase tracking-wider mb-1.5">
-                    Комментарий
-                  </label>
-                  <textarea
-                    id="comment"
-                    name="comment"
-                    value={formData.comment}
-                    onChange={handleChange}
-                    placeholder="Напишите цель, опыт или удобное время"
-                    rows={3}
-                    className={`${inputClass(false)} resize-none`}
-                  />
-                </div>
-
                 {/* Consent */}
                 <div>
                   <label className="flex items-start gap-3 cursor-pointer group">
@@ -494,6 +260,25 @@ export default function LeadFormSection() {
                 >
                   {isSubmitting ? "Отправляем..." : "Отправить заявку"}
                 </button>
+
+                {/* Divider */}
+                <div className="flex items-center gap-3 py-1">
+                  <div className="flex-1 h-px bg-[#2a2a2a]" />
+                  <span className="text-[#555555] text-xs uppercase tracking-wider">или</span>
+                  <div className="flex-1 h-px bg-[#2a2a2a]" />
+                </div>
+
+                {/* Call button */}
+                <a
+                  href={contacts.phoneHref}
+                  onClick={() => { try { (window as any).ym(109565621, "reachGoal", "phone_click") } catch {} }}
+                  className="flex items-center justify-center gap-2 w-full py-4 bg-[#111111] hover:bg-[#1e1e1e] border border-[#333333] hover:border-[#c41e3a]/50 text-white font-bold rounded-lg transition-all duration-200 text-sm tracking-wide"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.85a16 16 0 0 0 6.15 6.15l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                  Позвонить: {contacts.phone}
+                </a>
               </div>
             </form>
           </div>
