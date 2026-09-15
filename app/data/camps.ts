@@ -1,8 +1,25 @@
-export const camps = [
+export interface CampPeriod {
+  dates: string
+  age: string
+}
+
+export const camps: {
+  id: string
+  title: string
+  subtitle: string
+  description: string
+  details: string[]
+  periods: CampPeriod[]
+  who: string | null
+  photo: string | null
+  buttonText: string
+  formComment: string
+  href: string
+}[] = [
   {
     id: "anapa",
     title: "Сборы на Азовском море",
-    subtitle: "Краснодарский край, посёлок Темрюк · 50 м до моря",
+    subtitle: "Краснодарский край, Анапа · июль 2027",
     description:
       "Проводим сборы уже 6 лет подряд — каждый год выезжает от 80 до 120 спортсменов. Тренировки, режим, дисциплина, командная атмосфера — и полноценный отдых у моря всей семьёй.",
     details: [
@@ -12,10 +29,7 @@ export const camps = [
       "Открытый зал 200 м² и крытый зал 1000 м²",
       "Ринги, мешки, груши — всё для качественных тренировок",
     ],
-    periods: [
-      { dates: "30 июня — 11 июля", age: "6–13 лет" },
-      { dates: "11 июля — 22 июля", age: "13 лет и старше" },
-    ],
+    periods: [],
     who: "Дети, подростки, взрослые — любители и профессионалы. Сопровождающие (родители, бабушки, дедушки) приветствуются.",
     photo: null,
     buttonText: "Записаться на сборы",

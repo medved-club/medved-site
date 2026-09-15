@@ -2,7 +2,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { camps } from "@/app/data/camps"
 import { SectionHeader } from "./TrainingTypesSection"
-import CampCountdown from "./CampCountdown"
 
 export default function CampsSection() {
 
@@ -15,11 +14,7 @@ export default function CampsSection() {
           description="Сборы — часть спортивной жизни клуба: тренировки, режим, дисциплина, команда и развитие за пределами обычного зала."
         />
 
-        <div className="mt-12">
-          <CampCountdown />
-        </div>
-
-        <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {camps.map((camp) => (
             <div
               key={camp.id}

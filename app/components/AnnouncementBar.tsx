@@ -12,7 +12,7 @@ export default function AnnouncementBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-center gap-3">
         <div className="w-2 h-2 rounded-full bg-white animate-pulse flex-shrink-0" />
         <span className="text-center">
-          Сборы на Азовском море — 30 июня · Осталось мало мест
+          Сборы на Азовском море — июль 2027
         </span>
         <Link
           href="/sboryi"

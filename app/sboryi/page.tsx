@@ -1,14 +1,13 @@
 import Header from "@/app/components/Header"
 import BreadcrumbJsonLd from "@/app/components/BreadcrumbJsonLd"
 import CampsFormSection from "@/app/components/CampsFormSection"
-import CampCountdown from "@/app/components/CampCountdown"
 import FloatingButton from "@/app/components/FloatingButton"
 import Footer from "@/app/components/Footer"
 import Link from "next/link"
 
 export const metadata = {
   title: "Записаться на сборы — Клуб тайского бокса «Медведь»",
-  description: "Запись на ежегодные спортивные сборы клуба «Медведь»: Азовское море (июнь–июль) и Таиланд (март 2027).",
+  description: "Запись на ежегодные спортивные сборы клуба «Медведь»: Азовское море (июль 2027) и Таиланд (март 2027).",
   alternates: {
     canonical: "https://medved-club.ru/sboryi",
   },
@@ -58,9 +57,6 @@ export default function SboriyPage() {
       <Header />
       <main className="bg-[#111111]">
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-          <CampCountdown />
-        </div>
         <CampsFormSection />
 
         {/* Что взять */}
@@ -104,8 +100,8 @@ export default function SboriyPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Link href="/sboryi/azovskoe-more" className="bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#c41e3a]/40 rounded-xl p-5 transition-all duration-200">
                 <p className="text-white font-bold mb-1">Сборы на Азовском море</p>
-                <p className="text-[#c41e3a] text-xs mb-2">30 июня — 22 июля · две смены</p>
-                <p className="text-[#666] text-xs">Краснодарский край, посёлок Темрюк</p>
+                <p className="text-[#c41e3a] text-xs mb-2">Июль 2027</p>
+                <p className="text-[#666] text-xs">Краснодарский край, Анапа</p>
               </Link>
               <Link href="/sboryi/tailand" className="bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#c41e3a]/40 rounded-xl p-5 transition-all duration-200">
                 <p className="text-white font-bold mb-1">Сборы в Таиланде</p>
