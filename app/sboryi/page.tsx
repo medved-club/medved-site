@@ -4,6 +4,9 @@ import CampsFormSection from "@/app/components/CampsFormSection"
 import FloatingButton from "@/app/components/FloatingButton"
 import Footer from "@/app/components/Footer"
 import Link from "next/link"
+import { getSiteContent } from "@/lib/site-content"
+
+export const dynamic = "force-dynamic"
 
 export const metadata = {
   title: "Записаться на сборы — Клуб тайского бокса «Медведь»",
@@ -47,7 +50,13 @@ const faq = [
   },
 ]
 
-export default function SboriyPage() {
+export default async function SboriyPage() {
+  const content = await getSiteContent()
+  const dateLabel = (id: string, fallback: string) => {
+    const camp = content.camps.find((c) => c.id === id)
+    return camp?.subtitle.split("·").pop()?.trim() ?? fallback
+  }
+
   return (
     <>
       <BreadcrumbJsonLd items={[
@@ -100,12 +109,12 @@ export default function SboriyPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Link href="/sboryi/azovskoe-more" className="bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#c41e3a]/40 rounded-xl p-5 transition-all duration-200">
                 <p className="text-white font-bold mb-1">Сборы на Азовском море</p>
-                <p className="text-[#c41e3a] text-xs mb-2">Июль 2027</p>
+                <p className="text-[#c41e3a] text-xs mb-2">{dateLabel("anapa", "Июль 2027")}</p>
                 <p className="text-[#666] text-xs">Краснодарский край, Анапа</p>
               </Link>
               <Link href="/sboryi/tailand" className="bg-[#1a1a1a] border border-[#2a2a2a] hover:border-[#c41e3a]/40 rounded-xl p-5 transition-all duration-200">
                 <p className="text-white font-bold mb-1">Сборы в Таиланде</p>
-                <p className="text-[#c41e3a] text-xs mb-2">Март 2027</p>
+                <p className="text-[#c41e3a] text-xs mb-2">{dateLabel("thailand", "Март 2027")}</p>
                 <p className="text-[#666] text-xs">Родина муай-тай</p>
               </Link>
             </div>

@@ -2,6 +2,9 @@ import Header from "@/app/components/Header"
 import Footer from "@/app/components/Footer"
 import BreadcrumbJsonLd from "@/app/components/BreadcrumbJsonLd"
 import Link from "next/link"
+import { getSiteContent } from "@/lib/site-content"
+
+export const dynamic = "force-dynamic"
 
 export const metadata = {
   title: "Муай тай в Щёлково — Клуб «Медведь» | Запись на тренировку",
@@ -21,72 +24,76 @@ export const metadata = {
   },
 }
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": ["SportsClub", "LocalBusiness"],
-  name: "Клуб тайского бокса «Медведь»",
-  description: "Муай тай (тайский бокс) в Щёлково. Тренировки для детей, подростков и взрослых.",
-  url: "https://medved-club.ru",
-  telephone: "+7 968 675-07-00",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Щёлково",
-    addressRegion: "Московская область",
-    streetAddress: "Талсинская улица, 9",
-    postalCode: "141100",
-    addressCountry: "RU",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 55.9267,
-    longitude: 38.0072,
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "45",
-    bestRating: "5",
-    worstRating: "1",
-  },
-  openingHoursSpecification: [
-    { "@type": "OpeningHoursSpecification", dayOfWeek: "Monday",    opens: "18:00", closes: "21:00" },
-    { "@type": "OpeningHoursSpecification", dayOfWeek: "Wednesday", opens: "18:00", closes: "21:00" },
-    { "@type": "OpeningHoursSpecification", dayOfWeek: "Friday",    opens: "18:00", closes: "21:00" },
-  ],
-  sport: "Муай тай",
-  priceRange: "₽₽",
-}
+export default async function MuajTajSchelkovoPage() {
+  const content = await getSiteContent()
+  const priceOf = (id: string) => content.trainingTypes.find((t) => t.id === id)?.price ?? ""
+  const reviewCount = content.reviews.length
 
-const formats = [
-  {
-    title: "Групповые тренировки",
-    price: "6 500 ₽/мес",
-    text: "Пн/Ср/Пт — три раза в неделю. Группы по возрасту: дети 6–8 лет, подростки 9–13 лет, взрослые 14+.",
-    href: "/#lead-form",
-  },
-  {
-    title: "Персональная тренировка",
-    price: "3 000 ₽",
-    text: "Один на один с тренером. Программа под ваши цели. Гибкое расписание.",
-    href: "/individualnye-trenirovki",
-  },
-  {
-    title: "Сплит-тренировка",
-    price: "4 000 ₽",
-    text: "Для двоих — 2 000 ₽ с каждого. Подходит для друзей, пары, родителя с ребёнком.",
-    href: "/split-trenirovki",
-  },
-]
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": ["SportsClub", "LocalBusiness"],
+    name: "Клуб тайского бокса «Медведь»",
+    description: "Муай тай (тайский бокс) в Щёлково. Тренировки для детей, подростков и взрослых.",
+    url: "https://medved-club.ru",
+    telephone: "+7 968 675-07-00",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Щёлково",
+      addressRegion: "Московская область",
+      streetAddress: "Талсинская улица, 9",
+      postalCode: "141100",
+      addressCountry: "RU",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 55.9267,
+      longitude: 38.0072,
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: String(reviewCount),
+      bestRating: "5",
+      worstRating: "1",
+    },
+    openingHoursSpecification: [
+      { "@type": "OpeningHoursSpecification", dayOfWeek: "Monday",    opens: "18:00", closes: "21:00" },
+      { "@type": "OpeningHoursSpecification", dayOfWeek: "Wednesday", opens: "18:00", closes: "21:00" },
+      { "@type": "OpeningHoursSpecification", dayOfWeek: "Friday",    opens: "18:00", closes: "21:00" },
+    ],
+    sport: "Муай тай",
+    priceRange: "₽₽",
+  }
 
-const whyItems = [
-  "Тренер — КМС по муай тай, 10+ лет опыта, тренерская лицензия Федерации Московской области",
-  "Зал в Щёлково — Талсинская улица, 9, внутри фитнес-клуба «Олимп»",
-  "Группы по возрасту: дети с 6 лет, подростки, взрослые",
-  "Первое занятие бесплатно — без обязательств и давления",
-  "5,0 ★ — 45 отзывов на Яндекс Картах",
-]
+  const formats = [
+    {
+      title: "Групповые тренировки",
+      price: priceOf("group"),
+      text: "Пн/Ср/Пт — три раза в неделю. Группы по возрасту: дети 6–8 лет, подростки 9–13 лет, взрослые 14+.",
+      href: "/#lead-form",
+    },
+    {
+      title: "Персональная тренировка",
+      price: priceOf("personal"),
+      text: "Один на один с тренером. Программа под ваши цели. Гибкое расписание.",
+      href: "/individualnye-trenirovki",
+    },
+    {
+      title: "Сплит-тренировка",
+      price: priceOf("split"),
+      text: "Для двоих — 2 000 ₽ с каждого. Подходит для друзей, пары, родителя с ребёнком.",
+      href: "/split-trenirovki",
+    },
+  ]
 
-export default function MuajTajSchelkovoPage() {
+  const whyItems = [
+    "Тренер — КМС по муай тай, 10+ лет опыта, тренерская лицензия Федерации Московской области",
+    "Зал в Щёлково — Талсинская улица, 9, внутри фитнес-клуба «Олимп»",
+    "Группы по возрасту: дети с 6 лет, подростки, взрослые",
+    "Первое занятие бесплатно — без обязательств и давления",
+    `5,0 ★ — ${reviewCount} отзывов на Яндекс Картах`,
+  ]
+
   return (
     <>
       <BreadcrumbJsonLd items={[
@@ -104,7 +111,7 @@ export default function MuajTajSchelkovoPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-2 mb-4">
               <span className="inline-flex items-center gap-1 text-[#f5b800] text-xs font-bold">
-                ★★★★★ <span className="text-[#888] font-normal ml-1">5,0 · 45 отзывов</span>
+                ★★★★★ <span className="text-[#888] font-normal ml-1">5,0 · {reviewCount} отзывов</span>
               </span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-6">

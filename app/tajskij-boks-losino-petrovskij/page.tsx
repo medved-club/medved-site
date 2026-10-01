@@ -1,6 +1,8 @@
 import CityPage from "@/app/components/CityPage"
 import { cities } from "@/app/data/cities"
 
+export const dynamic = "force-dynamic"
+
 export const metadata = {
   title: "Тайский бокс Лосино-Петровский — Клуб «Медведь»",
   description: "Секция тайского бокса рядом с Лосино-Петровским. Клуб «Медведь» в Щёлково — 10 минут. Тренировки для детей и взрослых. Первое занятие бесплатно.",

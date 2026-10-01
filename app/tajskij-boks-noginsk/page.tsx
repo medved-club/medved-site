@@ -1,6 +1,8 @@
 import CityPage from "@/app/components/CityPage"
 import { cities } from "@/app/data/cities"
 
+export const dynamic = "force-dynamic"
+
 export const metadata = {
   title: "Тайский бокс Ногинск — Клуб «Медведь», Щёлково",
   description: "Секция тайского бокса рядом с Ногинском. Клуб «Медведь» в Щёлково — 30–35 минут. Тренировки для детей и взрослых. Первое занятие бесплатно.",

@@ -2,6 +2,9 @@ import Header from "@/app/components/Header"
 import BreadcrumbJsonLd from "@/app/components/BreadcrumbJsonLd"
 import Footer from "@/app/components/Footer"
 import Link from "next/link"
+import { getSiteContent } from "@/lib/site-content"
+
+export const dynamic = "force-dynamic"
 
 export const metadata = {
   title: "Индивидуальные тренировки по тайскому боксу в Щёлково — Клуб «Медведь»",
@@ -12,7 +15,10 @@ export const metadata = {
   },
 }
 
-export default function IndividualPage() {
+export default async function IndividualPage() {
+  const content = await getSiteContent()
+  const price = content.trainingTypes.find((t) => t.id === "personal")?.price ?? ""
+
   return (
     <>
       <BreadcrumbJsonLd items={[
@@ -82,7 +88,7 @@ export default function IndividualPage() {
 
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-black text-white mb-4">Персональная тренировка — от 3 000 ₽</h2>
+            <h2 className="text-2xl font-black text-white mb-4">Персональная тренировка — от {price}</h2>
             <p className="text-[#888888] mb-8">Щёлково, Талсинская улица, 9 · Запись по телефону</p>
             <p className="text-[#555] text-sm mb-8">Хотите попробовать бесплатно? Первое занятие бесплатно только в групповом формате — <Link href="/probnaya-trenirovka" className="text-[#c41e3a] hover:underline">подробнее о пробной тренировке</Link>.</p>
             <Link href="/#lead-form" className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200">Записаться</Link>

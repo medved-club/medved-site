@@ -2,6 +2,9 @@ import Header from "@/app/components/Header"
 import BreadcrumbJsonLd from "@/app/components/BreadcrumbJsonLd"
 import Footer from "@/app/components/Footer"
 import Link from "next/link"
+import { getSiteContent } from "@/lib/site-content"
+
+export const dynamic = "force-dynamic"
 
 export const metadata = {
   title: "Тайский бокс для похудения: сколько калорий и что изменится — Клуб «Медведь»",
@@ -12,7 +15,10 @@ export const metadata = {
   },
 }
 
-export default function ArticlePohudenieYaPage() {
+export default async function ArticlePohudenieYaPage() {
+  const content = await getSiteContent()
+  const groupPrice = (content.trainingTypes.find((t) => t.id === "group")?.price ?? "").split("/")[0].trim()
+
   return (
     <>
       <BreadcrumbJsonLd items={[
@@ -108,7 +114,7 @@ export default function ArticlePohudenieYaPage() {
               <h2 className="text-xl font-bold text-white mb-4">Какой формат тренировок подходит для похудения</h2>
               <div className="space-y-3">
                 {[
-                  { title: "Групповые тренировки", text: "Три раза в неделю — базовый минимум для похудения. Хорошая нагрузка, правильная техника, 6 500 ₽/месяц.", href: "/#lead-form" },
+                  { title: "Групповые тренировки", text: `Три раза в неделю — базовый минимум для похудения. Хорошая нагрузка, правильная техника, ${groupPrice}/месяц.`, href: "/#lead-form" },
                   { title: "Персональные тренировки", text: "Быстрее результат, программа под конкретные зоны. Тренер контролирует интенсивность и технику индивидуально.", href: "/individualnye-trenirovki" },
                   { title: "Сплит для двоих", text: "Подходит, если хочется тренироваться с подругой или партнёром. Дешевле персональной, больше внимания чем в группе.", href: "/split-trenirovki" },
                 ].map((f) => (

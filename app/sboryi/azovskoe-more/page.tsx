@@ -4,6 +4,9 @@ import CampsFormSection from "@/app/components/CampsFormSection"
 import FloatingButton from "@/app/components/FloatingButton"
 import Footer from "@/app/components/Footer"
 import Link from "next/link"
+import { getSiteContent } from "@/lib/site-content"
+
+export const dynamic = "force-dynamic"
 
 export const metadata = {
   title: "Сборы на Азовском море — Клуб «Медведь», Щёлково",
@@ -13,15 +16,15 @@ export const metadata = {
   },
 }
 
-const included = [
-  "Комфортные домики — кондиционер, ТВ, холодильник, санузел",
-  "3-разовое питание",
-  "2 бассейна и футбольное поле",
-  "Открытый зал 200 м² и крытый зал 1000 м²",
-  "Ринги, мешки, груши — всё для качественных тренировок",
-]
+export default async function AzovPage() {
+  const content = await getSiteContent()
+  const camp = content.camps.find((c) => c.id === "anapa")
+  const subtitle = camp?.subtitle ?? "Краснодарский край · Анапа · июль 2027"
+  const description = camp?.description ?? ""
+  const who = camp?.who ?? ""
+  const dateLabel = subtitle.split("·").pop()?.trim() ?? "Июль 2027"
+  const included = camp?.details ?? []
 
-export default function AzovPage() {
   return (
     <>
       <BreadcrumbJsonLd items={[
@@ -41,17 +44,19 @@ export default function AzovPage() {
               <span className="text-xs text-[#c41e3a]">Азовское море</span>
             </div>
             <span className="inline-block text-[#c41e3a] text-xs font-bold uppercase tracking-[0.2em] mb-4">
-              Краснодарский край · Анапа · июль 2027
+              {subtitle}
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-6">
               Сборы на Азовском море
             </h1>
             <p className="text-[#aaaaaa] text-lg leading-relaxed mb-4 max-w-2xl">
-              Проводим сборы уже 6 лет подряд — каждый год выезжает от 80 до 120 спортсменов. Тренировки, режим, дисциплина, командная атмосфера — и полноценный отдых у моря всей семьёй.
+              {description}
             </p>
-            <p className="text-[#888888] text-base leading-relaxed mb-10 max-w-2xl">
-              Дети, подростки, взрослые — любители и профессионалы. Сопровождающие (родители, бабушки, дедушки) приветствуются.
-            </p>
+            {who && (
+              <p className="text-[#888888] text-base leading-relaxed mb-10 max-w-2xl">
+                {who}
+              </p>
+            )}
             <a
               href="#camps-form"
               className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200 hover:shadow-[0_0_30px_rgba(196,30,58,0.4)]"
@@ -121,7 +126,7 @@ export default function AzovPage() {
               </div>
               <div>
                 <p className="text-xs text-[#666] uppercase tracking-wider mb-1">Когда</p>
-                <p className="text-white font-bold text-lg">Июль 2027</p>
+                <p className="text-white font-bold text-lg">{dateLabel}</p>
                 <p className="text-[#888] text-sm">Точные даты будут объявлены дополнительно</p>
               </div>
             </div>

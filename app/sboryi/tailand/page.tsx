@@ -2,6 +2,9 @@ import Header from "@/app/components/Header"
 import Footer from "@/app/components/Footer"
 import CampsFormSection from "@/app/components/CampsFormSection"
 import Link from "next/link"
+import { getSiteContent } from "@/lib/site-content"
+
+export const dynamic = "force-dynamic"
 
 export const metadata = {
   title: "Сборы в Таиланде — Клуб «Медведь», Щёлково",
@@ -18,7 +21,13 @@ const highlights = [
   { title: "Незабываемые впечатления", text: "Помимо тренировок — экзотика, природа, кухня, культура Таиланда. Поездка, которую запомнят навсегда." },
 ]
 
-export default function TailandPage() {
+export default async function TailandPage() {
+  const content = await getSiteContent()
+  const camp = content.camps.find((c) => c.id === "thailand")
+  const subtitle = camp?.subtitle ?? "Родина муай-тай · март 2027"
+  const description = camp?.description ?? ""
+  const dateLabel = subtitle.split("·").pop()?.trim() ?? "Март 2027"
+
   return (
     <>
       <Header />
@@ -33,13 +42,13 @@ export default function TailandPage() {
               <span className="text-xs text-[#c41e3a]">Таиланд</span>
             </div>
             <span className="inline-block text-[#c41e3a] text-xs font-bold uppercase tracking-[0.2em] mb-4">
-              Родина муай-тай · март 2027
+              {subtitle}
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-6">
               Сборы в Таиланде
             </h1>
             <p className="text-[#aaaaaa] text-lg leading-relaxed mb-4 max-w-2xl">
-              Таиланд — родина муай-тай. Сборы позволяют спортсменам погрузиться в атмосферу тайского бокса, потренироваться в особой спортивной среде и получить новый опыт.
+              {description}
             </p>
             <p className="text-[#888888] text-base leading-relaxed mb-10 max-w-2xl">
               Подробная программа, стоимость и даты — оставьте заявку, и мы расскажем всё при личном общении.
@@ -109,7 +118,7 @@ export default function TailandPage() {
               </div>
               <div>
                 <p className="text-xs text-[#666] uppercase tracking-wider mb-1">Когда</p>
-                <p className="text-white font-bold text-lg">Март 2027</p>
+                <p className="text-white font-bold text-lg">{dateLabel}</p>
                 <p className="text-[#888] text-sm">Точные даты будут объявлены дополнительно</p>
               </div>
             </div>

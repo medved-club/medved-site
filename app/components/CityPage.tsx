@@ -3,6 +3,7 @@ import Footer from "@/app/components/Footer"
 import BreadcrumbJsonLd from "@/app/components/BreadcrumbJsonLd"
 import Link from "next/link"
 import type { CityData } from "@/app/data/cities"
+import { getSiteContent } from "@/lib/site-content"
 
 const checkIcon = (
   <div className="w-5 h-5 rounded-full bg-[#c41e3a]/15 border border-[#c41e3a]/25 flex items-center justify-center flex-shrink-0">
@@ -16,12 +17,15 @@ interface Props {
   city: CityData
 }
 
-export default function CityPage({ city }: Props) {
+export default async function CityPage({ city }: Props) {
+  const content = await getSiteContent()
+  const priceOf = (id: string) => content.trainingTypes.find((t) => t.id === id)?.price ?? ""
+
   const formats = [
-    { title: "Групповые", price: "6 500 ₽/мес", desc: "Пн/Ср/Пт — 3 раза в неделю. Группы по возрасту.", href: "/#lead-form" },
-    { title: "Разовая групповая", price: "800 ₽", desc: "Одно занятие в группе без абонемента.", href: "/#lead-form" },
-    { title: "Персональные", price: "3 000 ₽", desc: "Один на один с тренером. Гибкое расписание.", href: "/individualnye-trenirovki" },
-    { title: "Сплит", price: "2 000 ₽/чел", desc: "Для двоих. Качество персонального, цена ниже.", href: "/split-trenirovki" },
+    { title: "Групповые", price: priceOf("group"), desc: "Пн/Ср/Пт — 3 раза в неделю. Группы по возрасту.", href: "/#lead-form" },
+    { title: "Разовая групповая", price: priceOf("single"), desc: "Одно занятие в группе без абонемента.", href: "/#lead-form" },
+    { title: "Персональные", price: priceOf("personal"), desc: "Один на один с тренером. Гибкое расписание.", href: "/individualnye-trenirovki" },
+    { title: "Сплит", price: priceOf("split"), desc: "Для двоих. Качество персонального, цена ниже.", href: "/split-trenirovki" },
   ]
 
   return (

@@ -2,6 +2,9 @@ import Header from "@/app/components/Header"
 import Footer from "@/app/components/Footer"
 import BreadcrumbJsonLd from "@/app/components/BreadcrumbJsonLd"
 import Link from "next/link"
+import { getSiteContent } from "@/lib/site-content"
+
+export const dynamic = "force-dynamic"
 
 export const metadata = {
   title: "Цены на тайский бокс в Щёлково — от 6 500 ₽/мес | Расписание",
@@ -49,70 +52,73 @@ const schedule = [
   },
 ]
 
-const prices = [
-  {
-    title: "Групповые тренировки",
-    price: "6 500 ₽",
-    period: "в месяц",
-    note: "Абонемент · 12 занятий в месяц",
-    features: [
-      "Пн / Ср / Пт — три раза в неделю",
-      "Группы по возрасту и уровню",
-      "Техника ударов, работа в парах, ОФП",
-      "Подходит для детей и взрослых",
-    ],
-    cta: "Записаться в группу",
-    href: "/#lead-form",
-    accent: false,
-  },
-  {
-    title: "Разовая групповая тренировка",
-    price: "800 ₽",
-    period: "за занятие",
-    note: "Без абонемента, разово",
-    features: [
-      "Одно посещение без абонемента",
-      "Пн / Ср / Пт — три раза в неделю",
-      "Группы по возрасту и уровню",
-      "Подходит, чтобы попробовать формат",
-    ],
-    cta: "Записаться",
-    href: "/#lead-form",
-    accent: false,
-  },
-  {
-    title: "Персональная тренировка",
-    price: "3 000 ₽",
-    period: "за занятие",
-    note: "Один на один с тренером",
-    features: [
-      "Гибкий график — в удобное время",
-      "Программа под ваши цели",
-      "Максимальное внимание тренера",
-      "Быстрый прогресс",
-    ],
-    cta: "Записаться",
-    href: "/individualnye-trenirovki",
-    accent: true,
-  },
-  {
-    title: "Сплит-тренировка",
-    price: "4 000 ₽",
-    period: "за занятие",
-    note: "Для 2 человек — 2 000 ₽ с каждого",
-    features: [
-      "Тренировка для двоих",
-      "Больше внимания, чем в группе",
-      "Выгоднее персональной",
-      "Для друзей, пары или родителя с ребёнком",
-    ],
-    cta: "Записаться",
-    href: "/split-trenirovki",
-    accent: false,
-  },
-]
+export default async function RaspisaniyePage() {
+  const content = await getSiteContent()
+  const amountOf = (id: string) => (content.trainingTypes.find((t) => t.id === id)?.price ?? "").split("/")[0].trim()
 
-export default function RaspisaniyePage() {
+  const prices = [
+    {
+      title: "Групповые тренировки",
+      price: amountOf("group"),
+      period: "в месяц",
+      note: "Абонемент · 12 занятий в месяц",
+      features: [
+        "Пн / Ср / Пт — три раза в неделю",
+        "Группы по возрасту и уровню",
+        "Техника ударов, работа в парах, ОФП",
+        "Подходит для детей и взрослых",
+      ],
+      cta: "Записаться в группу",
+      href: "/#lead-form",
+      accent: false,
+    },
+    {
+      title: "Разовая групповая тренировка",
+      price: amountOf("single"),
+      period: "за занятие",
+      note: "Без абонемента, разово",
+      features: [
+        "Одно посещение без абонемента",
+        "Пн / Ср / Пт — три раза в неделю",
+        "Группы по возрасту и уровню",
+        "Подходит, чтобы попробовать формат",
+      ],
+      cta: "Записаться",
+      href: "/#lead-form",
+      accent: false,
+    },
+    {
+      title: "Персональная тренировка",
+      price: amountOf("personal"),
+      period: "за занятие",
+      note: "Один на один с тренером",
+      features: [
+        "Гибкий график — в удобное время",
+        "Программа под ваши цели",
+        "Максимальное внимание тренера",
+        "Быстрый прогресс",
+      ],
+      cta: "Записаться",
+      href: "/individualnye-trenirovki",
+      accent: true,
+    },
+    {
+      title: "Сплит-тренировка",
+      price: amountOf("split"),
+      period: "за занятие",
+      note: "Для 2 человек — 2 000 ₽ с каждого",
+      features: [
+        "Тренировка для двоих",
+        "Больше внимания, чем в группе",
+        "Выгоднее персональной",
+        "Для друзей, пары или родителя с ребёнком",
+      ],
+      cta: "Записаться",
+      href: "/split-trenirovki",
+      accent: false,
+    },
+  ]
+
   return (
     <>
       <BreadcrumbJsonLd items={[

@@ -2,6 +2,9 @@ import Header from "@/app/components/Header"
 import BreadcrumbJsonLd from "@/app/components/BreadcrumbJsonLd"
 import Footer from "@/app/components/Footer"
 import Link from "next/link"
+import { getSiteContent } from "@/lib/site-content"
+
+export const dynamic = "force-dynamic"
 
 export const metadata = {
   title: "Тайский бокс с нуля: как начать без опыта — Клуб «Медведь», Щёлково",
@@ -12,7 +15,10 @@ export const metadata = {
   },
 }
 
-export default function ArticleNulyPage() {
+export default async function ArticleNulyPage() {
+  const content = await getSiteContent()
+  const groupPrice = (content.trainingTypes.find((t) => t.id === "group")?.price ?? "").split("/")[0].trim()
+
   return (
     <>
       <BreadcrumbJsonLd items={[
@@ -152,7 +158,7 @@ export default function ArticleNulyPage() {
             <div>
               <h2 className="text-xl font-bold text-white mb-4">Как устроены тренировки в клубе «Медведь»</h2>
               <p className="text-[#888888] leading-relaxed mb-3">
-                Групповые тренировки проходят пн/ср/пт в 20:00 для взрослых от 14 лет. Абонемент — 6 500 ₽/месяц (12 занятий). Если хотите прогрессировать быстрее — есть{" "}
+                Групповые тренировки проходят пн/ср/пт в 20:00 для взрослых от 14 лет. Абонемент — {groupPrice}/месяц (12 занятий). Если хотите прогрессировать быстрее — есть{" "}
                 <Link href="/individualnye-trenirovki" className="text-[#c41e3a] hover:underline">персональные тренировки</Link> и{" "}
                 <Link href="/split-trenirovki" className="text-[#c41e3a] hover:underline">сплит на двоих</Link>.
               </p>
