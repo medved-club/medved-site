@@ -31,7 +31,7 @@ export const camps: {
     ],
     periods: [],
     who: "Дети, подростки, взрослые — любители и профессионалы. Сопровождающие (родители, бабушки, дедушки) приветствуются.",
-    photo: null,
+    photo: "/images/gallery/camps-0704.jpg",
     buttonText: "Записаться на сборы",
     formComment: "Интересуют сборы на Азовском море",
     href: "/sboryi/azovskoe-more",

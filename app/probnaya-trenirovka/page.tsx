@@ -21,8 +21,8 @@ export const metadata = {
 const steps = [
   {
     n: "01",
-    title: "Оставьте заявку",
-    text: "Заполните форму ниже или напишите в Telegram. Тренер подтвердит время в течение нескольких часов.",
+    title: "Позвоните нам",
+    text: "Позвоните по телефону клуба. Тренер подберёт время и группу по вашему возрасту и уровню.",
   },
   {
     n: "02",
@@ -151,9 +151,9 @@ export default function ProbnajaPage() {
         {/* CTA */}
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-black text-white mb-4">Первое занятие — бесплатно</h2>
+            <h2 className="text-2xl font-black text-white mb-4">Первое групповое занятие — бесплатно</h2>
             <p className="text-[#888888] mb-8">
-              Щёлково, Талсинская улица, 9 · Запись по телефону или через форму
+              Щёлково, Талсинская улица, 9 · Запись по телефону
             </p>
             <Link
               href="/#lead-form"

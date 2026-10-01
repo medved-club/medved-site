@@ -66,6 +66,21 @@ const prices = [
     accent: false,
   },
   {
+    title: "Разовая групповая тренировка",
+    price: "800 ₽",
+    period: "за занятие",
+    note: "Без абонемента, разово",
+    features: [
+      "Одно посещение без абонемента",
+      "Пн / Ср / Пт — три раза в неделю",
+      "Группы по возрасту и уровню",
+      "Подходит, чтобы попробовать формат",
+    ],
+    cta: "Записаться",
+    href: "/#lead-form",
+    accent: false,
+  },
+  {
     title: "Персональная тренировка",
     price: "3 000 ₽",
     period: "за занятие",
@@ -116,7 +131,7 @@ export default function RaspisaniyePage() {
               Расписание и цены
             </h1>
             <p className="text-[#aaaaaa] text-lg leading-relaxed mb-10 max-w-2xl">
-              Тренировки по тайскому боксу три раза в неделю для детей, подростков и взрослых. Первое занятие — бесплатно.
+              Тренировки по тайскому боксу три раза в неделю для детей, подростков и взрослых. Первое групповое занятие — бесплатно.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
@@ -181,7 +196,7 @@ export default function RaspisaniyePage() {
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-xl font-bold text-white mb-8">Цены на тренировки</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {prices.map((p) => (
                 <div
                   key={p.title}
@@ -228,7 +243,7 @@ export default function RaspisaniyePage() {
 
             <div className="mt-8 bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5">
               <p className="text-[#888888] text-sm leading-relaxed">
-                <span className="text-white font-semibold">Первое занятие — бесплатно</span> для любого формата. Приходите попробовать без обязательств — запись через форму на сайте или в Telegram.
+                <span className="text-white font-semibold">Первое групповое занятие — бесплатно</span>. Персональные и сплит-тренировки — платные с первого раза. Приходите попробовать без обязательств — запишитесь по телефону.
               </p>
             </div>
           </div>

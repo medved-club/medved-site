@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export const metadata = {
   title: "Секция для детей в Щёлково — тайский бокс, единоборства, Клуб «Медведь»",
-  description: "Детская секция единоборств в Щёлково. Тайский бокс для детей от 6 лет. Опытный тренер, безопасно, результат. Первая тренировка бесплатно.",
+  description: "Детская секция единоборств в Щёлково. Тайский бокс для детей от 6 лет. Опытный тренер, безопасно, результат. Первое групповое занятие бесплатно.",
   keywords: ["секция для детей Щёлково", "детская секция Щёлково", "кружки для детей Щёлково", "спорт для детей Щёлково", "единоборства для детей Щёлково", "бокс для детей Щёлково"],
   alternates: {
     canonical: "https://medved-club.ru/sekciya-dlya-detej-schelkovo",
@@ -79,7 +79,7 @@ export default function SekciyaDetejPage() {
 
         <section className="py-16 bg-[#0f0f0f]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-black text-white mb-4">Первая тренировка — бесплатно</h2>
+            <h2 className="text-2xl font-black text-white mb-4">Первое групповое занятие — бесплатно</h2>
             <p className="text-[#888888] mb-8">Щёлково, Талсинская улица, 9 · +7 968 675-07-00</p>
             <Link href="/#lead-form" className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200">Записать ребёнка</Link>
           </div>

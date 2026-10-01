@@ -19,6 +19,7 @@ interface Props {
 export default function CityPage({ city }: Props) {
   const formats = [
     { title: "Групповые", price: "6 500 ₽/мес", desc: "Пн/Ср/Пт — 3 раза в неделю. Группы по возрасту.", href: "/#lead-form" },
+    { title: "Разовая групповая", price: "800 ₽", desc: "Одно занятие в группе без абонемента.", href: "/#lead-form" },
     { title: "Персональные", price: "3 000 ₽", desc: "Один на один с тренером. Гибкое расписание.", href: "/individualnye-trenirovki" },
     { title: "Сплит", price: "2 000 ₽/чел", desc: "Для двоих. Качество персонального, цена ниже.", href: "/split-trenirovki" },
   ]
@@ -105,7 +106,7 @@ export default function CityPage({ city }: Props) {
 
             {/* Formats */}
             <h2 className="text-xl font-bold text-white mb-6">Форматы тренировок</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
               {formats.map((f) => (
                 <div key={f.title} className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5 flex flex-col">
                   <h3 className="text-white font-bold text-sm mb-1">{f.title}</h3>

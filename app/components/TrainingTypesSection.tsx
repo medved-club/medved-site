@@ -19,7 +19,7 @@ export default function TrainingTypesSection() {
           description="Выберите формат, который подходит именно вам"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           {trainingTypes.map((type, index) => {
             const isExpanded = expanded[type.id]
             const shortDesc = type.description.split(".")[0] + "."
@@ -93,6 +93,16 @@ function TrainingIcon({ id }: { id: string }) {
         <circle cx="9" cy="7" r="4" />
         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    )
+  }
+  if (id === "single") {
+    return (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
       </svg>
     )
   }

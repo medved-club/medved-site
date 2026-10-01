@@ -65,6 +65,12 @@ const formats = [
     href: "/#lead-form",
   },
   {
+    title: "Разовая групповая тренировка",
+    price: "800 ₽",
+    text: "Одно занятие в группе без абонемента. Пн/Ср/Пт — по расписанию.",
+    href: "/#lead-form",
+  },
+  {
     title: "Персональная тренировка",
     price: "3 000 ₽",
     text: "Один на один с тренером. Программа под ваши цели. Гибкое расписание.",
@@ -148,7 +154,7 @@ export default function TajskijBoksSchelkovoPage() {
 
             {/* Formats */}
             <h2 className="text-xl font-bold text-white mb-6">Форматы тренировок по тайскому боксу в Щёлково</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
               {formats.map((f) => (
                 <div key={f.title} className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6 flex flex-col">
                   <h3 className="text-white font-bold text-sm mb-1">{f.title}</h3>

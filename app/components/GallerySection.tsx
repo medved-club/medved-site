@@ -1,36 +1,43 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import Image from "next/image"
 import { galleryCategories, galleryItems, type GalleryCategory } from "@/app/data/gallery"
 import { SectionHeader } from "./TrainingTypesSection"
 
+type AlbumCategory = Exclude<GalleryCategory, "all">
+
 export default function GallerySection() {
-  const [activeCategory, setActiveCategory] = useState<GalleryCategory>("all")
+  const [openCategory, setOpenCategory] = useState<AlbumCategory | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-  const sliderRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef<number | null>(null)
 
-  const filtered =
-    activeCategory === "all"
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === activeCategory)
+  const albums = galleryCategories
+    .filter((cat) => cat.value !== "all")
+    .map((cat) => ({
+      value: cat.value as AlbumCategory,
+      label: cat.label,
+      items: galleryItems.filter((item) => item.category === cat.value),
+    }))
 
-  const closeLightbox = () => setLightboxIndex(null)
+  const filtered = openCategory ? galleryItems.filter((item) => item.category === openCategory) : []
+
+  const openAlbum = (cat: AlbumCategory) => {
+    setOpenCategory(cat)
+    setLightboxIndex(0)
+  }
+
+  const closeLightbox = () => {
+    setLightboxIndex(null)
+    setOpenCategory(null)
+  }
 
   const goPrev = useCallback(() => {
-    setLightboxIndex((i) => i !== null ? (i - 1 + filtered.length) % filtered.length : null)
+    setLightboxIndex((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null))
   }, [filtered.length])
 
   const goNext = useCallback(() => {
-    setLightboxIndex((i) => i !== null ? (i + 1) % filtered.length : null)
+    setLightboxIndex((i) => (i !== null ? (i + 1) % filtered.length : null))
   }, [filtered.length])
-
-  const scrollSlider = (dir: "left" | "right") => {
-    if (!sliderRef.current) return
-    const amount = sliderRef.current.clientWidth * 0.8
-    sliderRef.current.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" })
-  }
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -47,11 +54,6 @@ export default function GallerySection() {
     document.body.style.overflow = lightboxIndex !== null ? "hidden" : ""
     return () => { document.body.style.overflow = "" }
   }, [lightboxIndex])
-
-  // Reset scroll when category changes
-  useEffect(() => {
-    if (sliderRef.current) sliderRef.current.scrollLeft = 0
-  }, [activeCategory])
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX
@@ -78,84 +80,42 @@ export default function GallerySection() {
           description="Зал, тренировки, спортсмены, соревнования и спортивные сборы клуба «Медведь»."
         />
 
-        {/* Category filters */}
-        <div className="flex flex-wrap gap-2 mt-8">
-          {galleryCategories.map((cat) => (
-            <button
-              key={cat.value}
-              onClick={() => { setActiveCategory(cat.value); setLightboxIndex(null) }}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
-                activeCategory === cat.value
-                  ? "bg-[#c41e3a] text-white"
-                  : "bg-[#1a1a1a] border border-[#2a2a2a] text-[#888888] hover:border-[#c41e3a]/40 hover:text-white"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Slider */}
-        <div className="relative mt-8 group/slider">
-          {/* Стрелка влево — на мобильном всегда видна */}
-          <button
-            onClick={() => scrollSlider("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10 w-10 h-10 rounded-full bg-[#111111] border border-[#2a2a2a] hover:bg-[#c41e3a] hover:border-[#c41e3a] text-white flex items-center justify-center transition-all duration-200 shadow-lg md:opacity-0 md:group-hover/slider:opacity-100"
-            aria-label="Прокрутить влево"
-          >
-            <ChevronLeftIcon />
-          </button>
-
-          {/* Стрелка вправо — на мобильном всегда видна */}
-          <button
-            onClick={() => scrollSlider("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10 w-10 h-10 rounded-full bg-[#111111] border border-[#2a2a2a] hover:bg-[#c41e3a] hover:border-[#c41e3a] text-white flex items-center justify-center transition-all duration-200 shadow-lg md:opacity-0 md:group-hover/slider:opacity-100"
-            aria-label="Прокрутить вправо"
-          >
-            <ChevronRightIcon />
-          </button>
-
-          {/* Горизонтальная лента */}
-          <div
-            ref={sliderRef}
-            className="flex gap-3 overflow-x-auto scroll-smooth pb-2 scrollbar-none"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none", touchAction: "pan-x" }}
-          >
-            {filtered.map((item, index) => (
+        {/* Альбомы по категориям */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8">
+          {albums.map((album) => {
+            const cover = album.items.find((item) => item.src)
+            return (
               <button
-                key={item.id}
-                onClick={() => setLightboxIndex(index)}
-                className="group relative flex-shrink-0 w-64 h-48 sm:w-72 sm:h-52 bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl overflow-hidden hover:border-[#c41e3a]/50 transition-all duration-300 focus:outline-none"
-                aria-label={item.alt}
+                key={album.value}
+                onClick={() => openAlbum(album.value)}
+                className="group relative aspect-[4/3] bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl overflow-hidden hover:border-[#c41e3a]/50 transition-all duration-300 focus:outline-none"
+                aria-label={`Открыть альбом «${album.label}»`}
               >
-                {item.src ? (
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    sizes="(min-width: 640px) 288px, 256px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    style={{ objectPosition: item.objectPosition ?? "center" }}
+                {cover?.src ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={cover.src}
+                    alt={album.label}
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-[#444] group-hover:text-[#666] transition-colors">
-                    <ImagePlaceholderIcon />
-                    <span className="text-xs px-3 text-center leading-tight">{item.caption}</span>
+                  <div className="w-full h-full flex items-center justify-center text-[#444]">
+                    <ImagePlaceholderIcon size={40} />
                   </div>
                 )}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-end justify-start p-3">
-                  <span className="text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/60 px-2 py-1 rounded">
-                    {item.caption}
-                  </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+                <div className="absolute left-0 right-0 bottom-0 p-4 text-left">
+                  <p className="text-white font-bold text-sm sm:text-base leading-tight">{album.label}</p>
+                  <p className="text-[#aaaaaa] text-xs mt-0.5">{album.items.length} фото</p>
                 </div>
               </button>
-            ))}
-          </div>
+            )
+          })}
         </div>
       </div>
 
-      {/* Lightbox */}
+      {/* Lightbox — открывается сразу при клике на альбом */}
       {lightboxIndex !== null && currentItem && (
         <div
           className="fixed inset-0 z-[100] bg-black/96 flex items-center justify-center p-4"

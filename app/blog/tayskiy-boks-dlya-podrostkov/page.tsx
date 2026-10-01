@@ -81,7 +81,7 @@ export default function ArticlePodrPage() {
                 ))}
               </div>
               <p className="text-[#888888] leading-relaxed">
-                Первое занятие — бесплатно. Тренер смотрит на уровень подготовки и определяет, в какую группу поставить.
+                Первое групповое занятие — бесплатно. Тренер смотрит на уровень подготовки и определяет, в какую группу поставить.
               </p>
             </div>
 
@@ -154,7 +154,7 @@ export default function ArticlePodrPage() {
             </div>
 
             <div className="bg-[#1a1a1a] border border-[#c41e3a]/20 rounded-xl p-8 text-center">
-              <h2 className="text-xl font-bold text-white mb-3">Первая тренировка — бесплатно</h2>
+              <h2 className="text-xl font-bold text-white mb-3">Первое групповое занятие — бесплатно</h2>
               <p className="text-[#888888] text-sm mb-2">Щёлково, Талсинская улица, 9</p>
               <p className="text-[#666] text-sm mb-6">Пн / Ср / Пт · 19:00 — группа 9–13 лет</p>
               <Link href="/#lead-form" className="inline-block px-8 py-4 bg-[#c41e3a] hover:bg-[#e02244] text-white font-bold rounded-xl transition-all duration-200">

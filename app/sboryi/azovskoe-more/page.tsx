@@ -61,6 +61,52 @@ export default function AzovPage() {
           </div>
         </section>
 
+        {/* Главное фото */}
+        <section className="py-0">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/gallery/camps-0704.jpg"
+              alt="Клуб Медведь на сборах на Азовском море — общее фото с флагом клуба"
+              className="w-full rounded-2xl object-cover"
+              style={{ maxHeight: "520px" }}
+              loading="lazy"
+            />
+            <p className="text-center text-[#555] text-xs mt-3">Клуб «Медведь» на сборах на Азовском море</p>
+          </div>
+        </section>
+
+        {/* Фотогалерея */}
+        <section className="py-16 bg-[#0f0f0f]">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="text-xs font-semibold text-[#666666] uppercase tracking-widest mb-6">Фотографии</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {[
+                { src: "/images/gallery/camps-0704.jpg", alt: "Общее фото с флагом клуба" },
+                { src: "/images/gallery/camps-7342.jpg", alt: "Команда на пляже с флагом клуба" },
+                { src: "/images/gallery/camps-6489.jpg", alt: "Командное фото в зале" },
+                { src: "/images/gallery/camps-0593.jpg", alt: "Команда на берегу" },
+                { src: "/images/gallery/camps-4916.jpg", alt: "На пляже" },
+                { src: "/images/gallery/camps-e60f.jpg", alt: "Тренировка в зале" },
+                { src: "/images/gallery/camps-1d2c.jpg", alt: "Работа с тренером" },
+                { src: "/images/gallery/camps-7331.jpg", alt: "Спарринг" },
+                { src: "/images/gallery/camps-1530.jpg", alt: "Тренировка в паре" },
+                { src: "/images/gallery/camps-2756.jpg", alt: "Групповая тренировка" },
+              ].map((photo, i) => (
+                <div key={i} className="aspect-[4/3] rounded-xl overflow-hidden bg-[#1a1a1a]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* When */}
         <section className="py-12">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
