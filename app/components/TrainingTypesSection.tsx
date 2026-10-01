@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { trainingTypes } from "@/app/data/trainingTypes"
+import { trainingTypes as defaultTrainingTypes } from "@/app/data/trainingTypes"
+import type { TrainingType } from "@/lib/site-content"
 
-export default function TrainingTypesSection() {
+export default function TrainingTypesSection({ trainingTypes = defaultTrainingTypes }: { trainingTypes?: TrainingType[] }) {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   const scrollToForm = () => {

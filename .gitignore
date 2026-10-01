@@ -33,6 +33,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# runtime data (рабочие данные сайта и хеши паролей админки — не для публичного репозитория)
+/data/site-content.json
+/data/admin-users.json
+
 # vercel
 .vercel
 

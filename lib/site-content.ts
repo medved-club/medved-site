@@ -1,0 +1,67 @@
+import { promises as fs } from "fs"
+import path from "path"
+
+export interface TrainingType {
+  id: string
+  title: string
+  description: string
+  price: string
+  priceNote: string
+  buttonText: string
+  formValue: string
+}
+
+export interface CampPeriod {
+  dates: string
+  age: string
+}
+
+export interface Camp {
+  id: string
+  title: string
+  subtitle: string
+  description: string
+  details: string[]
+  periods: CampPeriod[]
+  who: string | null
+  photo: string | null
+  buttonText: string
+  formComment: string
+  href: string
+}
+
+export interface GalleryItem {
+  id: string
+  category: string
+  alt: string
+  src: string | null
+  caption: string
+  objectPosition?: string
+}
+
+export interface InfoBlock {
+  id: string
+  title: string
+  text: string
+  linkHref?: string
+  linkText?: string
+  active: boolean
+}
+
+export interface SiteContent {
+  trainingTypes: TrainingType[]
+  camps: Camp[]
+  galleryItems: GalleryItem[]
+  infoBlocks: InfoBlock[]
+}
+
+const DATA_PATH = process.env.SITE_CONTENT_PATH || path.join(process.cwd(), "data", "site-content.json")
+
+export async function getSiteContent(): Promise<SiteContent> {
+  const raw = await fs.readFile(DATA_PATH, "utf-8")
+  return JSON.parse(raw) as SiteContent
+}
+
+export async function saveSiteContent(content: SiteContent): Promise<void> {
+  await fs.writeFile(DATA_PATH, JSON.stringify(content, null, 2), "utf-8")
+}

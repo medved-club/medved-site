@@ -1,12 +1,13 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { galleryCategories, galleryItems, type GalleryCategory } from "@/app/data/gallery"
+import { galleryCategories, galleryItems as defaultGalleryItems, type GalleryCategory } from "@/app/data/gallery"
 import { SectionHeader } from "./TrainingTypesSection"
+import type { GalleryItem } from "@/lib/site-content"
 
 type AlbumCategory = Exclude<GalleryCategory, "all">
 
-export default function GallerySection() {
+export default function GallerySection({ galleryItems = defaultGalleryItems }: { galleryItems?: GalleryItem[] }) {
   const [openCategory, setOpenCategory] = useState<AlbumCategory | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const touchStartX = useRef<number | null>(null)

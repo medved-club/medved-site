@@ -1,9 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
-import { camps } from "@/app/data/camps"
+import { camps as defaultCamps } from "@/app/data/camps"
 import { SectionHeader } from "./TrainingTypesSection"
+import type { Camp } from "@/lib/site-content"
 
-export default function CampsSection() {
+export default function CampsSection({ camps = defaultCamps }: { camps?: Camp[] }) {
 
   return (
     <section id="camps" className="py-20 lg:py-28 bg-[#111111]">

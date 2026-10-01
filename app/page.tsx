@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic"
+import dynamicImport from "next/dynamic"
 import Header from "@/app/components/Header"
 import HeroSection from "@/app/components/HeroSection"
 import StatsSection from "@/app/components/StatsSection"
@@ -12,14 +12,20 @@ import AchievementsSection from "@/app/components/AchievementsSection"
 import LeadFormSection from "@/app/components/LeadFormSection"
 import FaqSection from "@/app/components/FaqSection"
 import ContactsSection from "@/app/components/ContactsSection"
+import InfoBlocksSection from "@/app/components/InfoBlocksSection"
 import Footer from "@/app/components/Footer"
 import FloatingButton from "@/app/components/FloatingButton"
+import { getSiteContent } from "@/lib/site-content"
 
-const GallerySection = dynamic(() => import("@/app/components/GallerySection"))
-const ReviewsSection = dynamic(() => import("@/app/components/ReviewsSection"))
-const PopupForm = dynamic(() => import("@/app/components/PopupForm"))
+export const dynamic = "force-dynamic"
 
-export default function HomePage() {
+const GallerySection = dynamicImport(() => import("@/app/components/GallerySection"))
+const ReviewsSection = dynamicImport(() => import("@/app/components/ReviewsSection"))
+const PopupForm = dynamicImport(() => import("@/app/components/PopupForm"))
+
+export default async function HomePage() {
+  const content = await getSiteContent()
+
   return (
     <>
       <Header />
@@ -27,12 +33,13 @@ export default function HomePage() {
         <HeroSection />
         <StatsSection />
         <AboutSection />
-        <TrainingTypesSection />
+        <InfoBlocksSection infoBlocks={content.infoBlocks} />
+        <TrainingTypesSection trainingTypes={content.trainingTypes} />
         <AudienceSection />
         <ScheduleSection />
         <TrainersSection />
-        <GallerySection />
-        <CampsSection />
+        <GallerySection galleryItems={content.galleryItems} />
+        <CampsSection camps={content.camps} />
         <AchievementsSection />
         <ReviewsSection />
         <LeadFormSection />
