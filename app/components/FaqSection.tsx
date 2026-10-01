@@ -1,10 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { faq } from "@/app/data/faq"
+import { faq as defaultFaq } from "@/app/data/faq"
 import { SectionHeader } from "./TrainingTypesSection"
+import type { FaqItem } from "@/lib/site-content"
 
-export default function FaqSection() {
+export default function FaqSection({ faq = defaultFaq }: { faq?: FaqItem[] }) {
   const [openId, setOpenId] = useState<string | null>(null)
 
   return (

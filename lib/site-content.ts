@@ -48,11 +48,29 @@ export interface InfoBlock {
   active: boolean
 }
 
+export interface FaqItem {
+  id: string
+  question: string
+  answer: string
+}
+
+export interface Review {
+  id: string
+  author: string
+  rating: number
+  text: string
+  source: string
+  date?: string
+  featured?: boolean
+}
+
 export interface SiteContent {
   trainingTypes: TrainingType[]
   camps: Camp[]
   galleryItems: GalleryItem[]
   infoBlocks: InfoBlock[]
+  faq: FaqItem[]
+  reviews: Review[]
 }
 
 const DATA_PATH = process.env.SITE_CONTENT_PATH || path.join(process.cwd(), "data", "site-content.json")

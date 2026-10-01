@@ -41,9 +41,9 @@ export default async function HomePage() {
         <GallerySection galleryItems={content.galleryItems} />
         <CampsSection camps={content.camps} />
         <AchievementsSection />
-        <ReviewsSection />
+        <ReviewsSection reviews={content.reviews} />
         <LeadFormSection />
-        <FaqSection />
+        <FaqSection faq={content.faq} />
         <ContactsSection />
       </main>
       <Footer />

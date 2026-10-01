@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { reviews, featuredReviews } from "@/app/data/reviews"
+import { reviews as defaultReviews } from "@/app/data/reviews"
 import { contacts } from "@/app/data/contacts"
 import { SectionHeader } from "./TrainingTypesSection"
+import type { Review } from "@/lib/site-content"
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -27,7 +28,7 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
-function ReviewCard({ review }: { review: (typeof reviews)[0] }) {
+function ReviewCard({ review }: { review: Review }) {
   return (
     <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5 flex flex-col gap-3">
       <div className="flex items-start justify-between gap-2">
@@ -50,9 +51,10 @@ function ReviewCard({ review }: { review: (typeof reviews)[0] }) {
   )
 }
 
-export default function ReviewsSection() {
+export default function ReviewsSection({ reviews = defaultReviews }: { reviews?: Review[] }) {
   const [showAll, setShowAll] = useState(false)
 
+  const featuredReviews = reviews.filter((r) => r.featured)
   const extraReviews = reviews.filter((r) => !r.featured)
   const totalCount = reviews.length
 

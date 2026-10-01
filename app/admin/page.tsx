@@ -5,6 +5,8 @@ const cards = [
   { href: "/admin/camps", title: "Сборы", desc: "Даты, описание и условия выездных сборов" },
   { href: "/admin/gallery", title: "Фото", desc: "Добавить или удалить фото в галерее" },
   { href: "/admin/info-blocks", title: "Объявления", desc: "Набор в группы и другие новости на главной" },
+  { href: "/admin/faq", title: "FAQ", desc: "Частые вопросы и ответы" },
+  { href: "/admin/reviews", title: "Отзывы", desc: "Добавить, изменить или скрыть отзыв" },
   { href: "/admin/password", title: "Пароль", desc: "Сменить свой пароль входа" },
 ]
 

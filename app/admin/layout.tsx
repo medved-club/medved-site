@@ -9,6 +9,8 @@ const links = [
   { href: "/admin/camps", label: "Сборы" },
   { href: "/admin/gallery", label: "Фото" },
   { href: "/admin/info-blocks", label: "Объявления" },
+  { href: "/admin/faq", label: "FAQ" },
+  { href: "/admin/reviews", label: "Отзывы" },
   { href: "/admin/password", label: "Пароль" },
 ]
 
