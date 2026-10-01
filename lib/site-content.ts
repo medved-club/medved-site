@@ -81,5 +81,7 @@ export async function getSiteContent(): Promise<SiteContent> {
 }
 
 export async function saveSiteContent(content: SiteContent): Promise<void> {
-  await fs.writeFile(DATA_PATH, JSON.stringify(content, null, 2), "utf-8")
+  const tmpPath = `${DATA_PATH}.${process.pid}.${Date.now()}.tmp`
+  await fs.writeFile(tmpPath, JSON.stringify(content, null, 2), "utf-8")
+  await fs.rename(tmpPath, DATA_PATH)
 }
