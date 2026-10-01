@@ -29,6 +29,10 @@ async function readUsers(): Promise<AdminUser[]> {
   return JSON.parse(raw) as AdminUser[]
 }
 
+async function writeUsers(users: AdminUser[]): Promise<void> {
+  await fs.writeFile(USERS_PATH, JSON.stringify(users, null, 2), "utf-8")
+}
+
 export async function verifyCredentials(username: string, password: string): Promise<AdminUser | null> {
   const users = await readUsers()
   const user = users.find((u) => u.username === username)
@@ -36,6 +40,25 @@ export async function verifyCredentials(username: string, password: string): Pro
   const check = crypto.scryptSync(password, user.salt, 64).toString("hex")
   const match = crypto.timingSafeEqual(Buffer.from(check, "hex"), Buffer.from(user.hash, "hex"))
   return match ? user : null
+}
+
+export async function changePassword(username: string, oldPassword: string, newPassword: string): Promise<{ ok: true } | { ok: false; error: string }> {
+  if (newPassword.length < 8) {
+    return { ok: false, error: "Новый пароль должен быть не короче 8 символов" }
+  }
+  const users = await readUsers()
+  const user = users.find((u) => u.username === username)
+  if (!user) return { ok: false, error: "Пользователь не найден" }
+
+  const check = crypto.scryptSync(oldPassword, user.salt, 64).toString("hex")
+  const match = crypto.timingSafeEqual(Buffer.from(check, "hex"), Buffer.from(user.hash, "hex"))
+  if (!match) return { ok: false, error: "Текущий пароль указан неверно" }
+
+  const { salt, hash } = hashPassword(newPassword)
+  user.salt = salt
+  user.hash = hash
+  await writeUsers(users)
+  return { ok: true }
 }
 
 function sign(value: string): string {

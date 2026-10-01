@@ -9,6 +9,7 @@ const links = [
   { href: "/admin/camps", label: "Сборы" },
   { href: "/admin/gallery", label: "Фото" },
   { href: "/admin/info-blocks", label: "Объявления" },
+  { href: "/admin/password", label: "Пароль" },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
