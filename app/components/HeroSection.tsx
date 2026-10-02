@@ -55,7 +55,7 @@ export default function HeroSection() {
           </p>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg text-[#dddddd] leading-relaxed mb-8 max-w-2xl [text-shadow:0_1px_8px_rgba(0,0,0,0.95)]">
+          <p className="text-base sm:text-lg text-[#dddddd] leading-relaxed mt-20 sm:mt-0 mb-8 max-w-2xl [text-shadow:0_1px_8px_rgba(0,0,0,0.95)]">
             Групповые, персональные и сплит-тренировки по тайскому боксу для детей, подростков и взрослых. Можно начать с нуля или развиваться как спортсмен. Пол и уровень физической подготовки не имеют значения.
           </p>
 
