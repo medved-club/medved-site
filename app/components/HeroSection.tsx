@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { contacts } from "@/app/data/contacts"
 
 const badges = [
@@ -11,12 +12,19 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative flex items-center justify-center overflow-hidden bg-[#0a0a0a]"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#1a0a0a]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(196,30,58,0.15),_transparent_60%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(139,0,0,0.1),_transparent_60%)]" />
+      {/* Background photo — своя высота по пропорциям фото, не растягивается под высоту текста */}
+      <div className="absolute inset-x-0 top-0 w-full" style={{ aspectRatio: "1672 / 941" }}>
+        <Image
+          src="/images/hero-bg.png"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/90 via-[#0a0a0a]/10 to-transparent" />
 
       {/* Grid texture */}
       <div
@@ -33,27 +41,21 @@ export default function HeroSection() {
       <div className="hidden md:block absolute bottom-1/4 left-0 w-64 h-64 bg-[#8b0000]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 lg:pt-32 lg:pb-24">
-        <div className="max-w-4xl">
-          {/* Location badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1a1a1a] border border-[#333333] text-xs text-[#999999] mb-6">
-            <LocationIcon />
-            <span>Щёлково, Московская область</span>
-          </div>
-
+        <div className="max-w-4xl lg:ml-[420px]">
           {/* H1 */}
-          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black text-white leading-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-4 [text-shadow:0_2px_20px_rgba(0,0,0,0.9),0_1px_3px_rgba(0,0,0,0.9)]">
             Клуб тайского бокса{" "}
             <span className="text-[#c41e3a]">«Медведь»</span>{" "}
             в Щёлково
           </h1>
 
           {/* Slogan */}
-          <p className="text-sm sm:text-base lg:text-lg text-[#c41e3a] font-semibold tracking-widest uppercase mb-6">
+          <p className="text-sm sm:text-base lg:text-lg text-[#c41e3a] font-semibold tracking-widest uppercase mb-6 [text-shadow:0_1px_10px_rgba(0,0,0,0.9)]">
             Сила. Дисциплина. Техника. Команда.
           </p>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg text-[#aaaaaa] leading-relaxed mb-8 max-w-2xl">
+          <p className="text-base sm:text-lg text-[#dddddd] leading-relaxed mb-8 max-w-2xl [text-shadow:0_1px_8px_rgba(0,0,0,0.95)]">
             Групповые, персональные и сплит-тренировки по тайскому боксу для детей, подростков и взрослых. Можно начать с нуля или развиваться как спортсмен. Пол и уровень физической подготовки не имеют значения.
           </p>
 
