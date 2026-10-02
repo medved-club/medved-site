@@ -4,12 +4,14 @@ import { useEffect, useState } from "react"
 import type { InfoBlock } from "@/lib/site-content"
 
 function newBlock(): InfoBlock {
-  return { id: crypto.randomUUID(), title: "", text: "", linkHref: "", linkText: "", active: true }
+  return { id: crypto.randomUUID(), title: "", text: "", image: null, linkHref: "", linkText: "", active: true }
 }
 
 export default function AdminInfoBlocksPage() {
   const [items, setItems] = useState<InfoBlock[] | null>(null)
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle")
+  const [uploadingId, setUploadingId] = useState<string | null>(null)
+  const [uploadError, setUploadError] = useState("")
 
   useEffect(() => {
     fetch("/api/admin/info-blocks")
@@ -17,12 +19,27 @@ export default function AdminInfoBlocksPage() {
       .then(setItems)
   }, [])
 
-  const update = (id: string, field: keyof InfoBlock, value: string | boolean) => {
+  const update = (id: string, field: keyof InfoBlock, value: string | boolean | null) => {
     setItems((prev) => prev?.map((b) => (b.id === id ? { ...b, [field]: value } : b)) ?? null)
   }
 
   const add = () => setItems((prev) => [...(prev ?? []), newBlock()])
   const remove = (id: string) => setItems((prev) => prev?.filter((b) => b.id !== id) ?? null)
+
+  const uploadImage = async (id: string, file: File) => {
+    setUploadError("")
+    setUploadingId(id)
+    const form = new FormData()
+    form.append("file", file)
+    const res = await fetch("/api/admin/info-blocks/upload", { method: "POST", body: form })
+    const data = await res.json()
+    setUploadingId(null)
+    if (!res.ok) {
+      setUploadError(data.error || "Не удалось загрузить картинку")
+      return
+    }
+    update(id, "image", data.path)
+  }
 
   const save = async () => {
     setStatus("saving")
@@ -55,7 +72,33 @@ export default function AdminInfoBlocksPage() {
               </button>
             </div>
 
-            <label className="block text-xs font-semibold text-[#888888] uppercase tracking-wider mb-2">Заголовок</label>
+            <label className="block text-xs font-semibold text-[#888888] uppercase tracking-wider mb-2">Картинка (необязательно)</label>
+            {b.image && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={b.image} alt="" className="w-full max-w-[200px] rounded-lg mb-3 border border-[#2a2a2a]" />
+            )}
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                if (file) uploadImage(b.id, file)
+              }}
+              className="w-full mb-1 text-white text-sm"
+            />
+            {uploadingId === b.id && <p className="text-[#888888] text-xs mb-3">Загружаем…</p>}
+            {uploadError && uploadingId === null && <p className="text-[#c41e3a] text-xs mb-3">{uploadError}</p>}
+            {b.image && (
+              <button
+                type="button"
+                onClick={() => update(b.id, "image", null)}
+                className="text-[#888888] text-xs hover:text-[#c41e3a] mb-4 inline-block"
+              >
+                Убрать картинку
+              </button>
+            )}
+
+            <label className="block text-xs font-semibold text-[#888888] uppercase tracking-wider mb-2 mt-2">Заголовок</label>
             <input
               value={b.title}
               onChange={(e) => update(b.id, "title", e.target.value)}

@@ -87,7 +87,7 @@ const jsonLdOrganization = {
     longitude: 38.0072,
   },
   telephone: contacts.phone,
-  sameAs: [contacts.vk, contacts.telegram, contacts.yandexMaps],
+  sameAs: [contacts.vk, contacts.telegram, contacts.max, contacts.yandexMaps],
   sport: "Тайский бокс",
   openingHoursSpecification: [
     { "@type": "OpeningHoursSpecification", dayOfWeek: "Monday",    opens: "18:00", closes: "21:00" },

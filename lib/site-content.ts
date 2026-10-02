@@ -43,6 +43,7 @@ export interface InfoBlock {
   id: string
   title: string
   text: string
+  image?: string | null
   linkHref?: string
   linkText?: string
   active: boolean
